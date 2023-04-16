@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="row">
+    <div class="col mt-4">
+        <h4>Build a secret message database</h4>
+        <div id="form-container" class="rounded p-3 mt-3 mb-5">
+            <form method="post">
+                <label asp-for="NewMessage.Text" class="control-label">Add a new message:</label>
+                <div class="input-group">
+                    <input asp-for="NewMessage.Text" class="form-control" />
+                    <div class="input-group-append">
+                        <input type="submit" value="Create" class="btn cipher-yellow" />
+                    </div>
+                </div>
+                <span asp-validation-for="NewMessage.Text" class="text-danger"></span>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered text-center" id="encoded-decoded-table">
+    <thead class="cipher-yellow">
+        <tr>
+            <th scope="col">Encoded</th>
+            <th scope="col">Decoded</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (KeyValuePair<string, string> secret in Model.Secrets)
+        {
+                <tr>
+                    <td scope="row">@secret.Key</td>
+                    <td>@secret.Value</td>
+                </tr>
+        }
+    </tbody>
+</table>
